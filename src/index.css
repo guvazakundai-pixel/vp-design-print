@@ -1,0 +1,137 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-blue: #2563EB;
+  --color-brand-royal: #1D4ED8;
+  --color-brand-cyan: #06B6D4;
+  --color-brand-purple: #7C3AED;
+  --color-brand-pink: #EC4899;
+  --color-brand-lime: #84CC16;
+  --color-brand-orange: #F97316;
+  --color-dark: #111827;
+  --color-light-bg: #F8FAFC;
+  --font-heading: "Manrope", "Inter", sans-serif;
+  --font-body: "Inter", sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-body);
+  background: #F8FAFC;
+  overflow-x: hidden;
+}
+h1, h2, h3, h4, h5, h6 { font-family: var(--font-heading); letter-spacing: -0.02em; }
+
+/* ─── Glass ─── */
+.glass {
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(20px) saturate(1.4);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+  border: 1px solid rgba(255,255,255,0.25);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.5);
+}
+.glass-card {
+  background: rgba(255,255,255,0.55);
+  backdrop-filter: blur(16px) saturate(1.5);
+  -webkit-backdrop-filter: blur(16px) saturate(1.5);
+  border: 1px solid rgba(255,255,255,0.6);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.7);
+  transition: all 0.4s cubic-bezier(0.22,1,0.36,1);
+}
+.glass-card:hover { transform: translateY(-4px) scale(1.01); box-shadow: 0 16px 48px rgba(37,99,235,0.12), inset 0 1px 0 rgba(255,255,255,0.8); }
+.glass-dark {
+  background: rgba(17,24,39,0.35);
+  backdrop-filter: blur(24px) saturate(1.6);
+  -webkit-backdrop-filter: blur(24px) saturate(1.6);
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+}
+
+/* ─── Buttons ─── */
+.glass-btn {
+  background: linear-gradient(135deg, #2563EB, #1D4ED8);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.2);
+  box-shadow: 0 4px 16px rgba(37,99,235,0.3), inset 0 1px 0 rgba(255,255,255,0.3);
+  transition: all 0.3s cubic-bezier(0.22,1,0.36,1);
+}
+.glass-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(37,99,235,0.4); }
+
+/* ─── Colorful gradient utilities ─── */
+.gradient-cyan { background: linear-gradient(135deg, #06B6D4, #2563EB); }
+.gradient-purple { background: linear-gradient(135deg, #7C3AED, #EC4899); }
+.gradient-pink { background: linear-gradient(135deg, #EC4899, #F97316); }
+.gradient-lime { background: linear-gradient(135deg, #84CC16, #06B6D4); }
+.gradient-multi {
+  background: linear-gradient(135deg, #2563EB, #06B6D4, #7C3AED, #EC4899);
+  background-size: 300% 300%;
+  animation: gradientMove 8s ease infinite;
+}
+
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ─── Floating blobs ─── */
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  pointer-events: none;
+  opacity: 0.15;
+}
+.blob-cyan { width: 400px; height: 400px; background: #06B6D4; }
+.blob-purple { width: 350px; height: 350px; background: #7C3AED; }
+.blob-pink { width: 300px; height: 300px; background: #EC4899; }
+.blob-blue { width: 380px; height: 380px; background: #2563EB; }
+
+/* ─── Animations ─── */
+@keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-16px); } }
+@keyframes floatSlow { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-24px); } }
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes scaleIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+@keyframes spinSlow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+.animate-float { animation: float 6s ease-in-out infinite; }
+.animate-float-slow { animation: floatSlow 8s ease-in-out infinite; }
+.animate-fade-in-up { animation: fadeInUp 0.8s ease-out forwards; }
+.animate-scale-in { animation: scaleIn 0.6s ease-out forwards; }
+.animate-spin-slow { animation: spinSlow 30s linear infinite; }
+
+/* ─── Product card carousel ─── */
+.product-card {
+  position: absolute;
+  width: 220px;
+  height: 280px;
+  border-radius: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.8s cubic-bezier(0.22,1,0.36,1);
+  opacity: 0;
+  transform: translateY(20px) scale(0.9);
+}
+.product-card.active {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+.product-card.exit {
+  opacity: 0;
+  transform: translateY(-20px) scale(0.9);
+}
+
+/* ─── Scrollbar ─── */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: #F8FAFC; }
+::-webkit-scrollbar-thumb { background: linear-gradient(135deg, #2563EB, #7C3AED); border-radius: 4px; }
+
+/* ─── Text gradient ─── */
+.text-gradient-brand {
+  background: linear-gradient(135deg, #2563EB, #06B6D4, #7C3AED, #EC4899);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
