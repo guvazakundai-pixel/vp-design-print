@@ -233,22 +233,24 @@ function ServicesOverview() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
           {services.map((s, i) => (
-            <motion.div key={s.id} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: i * 0.05 }}
-              className="glass-card-blue rounded-3xl p-6 group cursor-default"
-              style={{ background: `linear-gradient(135deg, rgba(37,99,235,0.06), rgba(6,182,212,0.04))`, backdropFilter: "blur(16px)", border: "1px solid rgba(37,99,235,0.1)" }}>
-              <div className="text-3xl mb-3">{s.icon}</div>
-              <h3 className="font-bold text-dark text-base mb-2">{s.title}</h3>
-              <p className="text-gray-500 text-xs font-light leading-relaxed mb-3">{s.desc}</p>
-              <div className="flex flex-wrap gap-1.5 mb-3">
-                {s.items.slice(0, 4).map((item) => (
-                  <span key={item} className="text-[10px] bg-gray-100 text-gray-500 px-2 py-0.5 rounded-full">{item}</span>
-                ))}
-                {s.items.length > 4 && <span className="text-[10px] text-brand-blue font-medium">+{s.items.length - 4} more</span>}
-              </div>
-              <Link to={`/services#${s.id}`} className="inline-flex items-center gap-1 text-xs font-semibold text-brand-blue hover:gap-2 transition-all">
-                Learn More <ArrowRight size={12} />
-              </Link>
-            </motion.div>
+            <Link key={s.id} to={`/services#${s.id}`} className="no-underline">
+              <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: i * 0.05 }}
+                className="glass-card-blue rounded-3xl p-6 group cursor-pointer h-full"
+                style={{ background: `linear-gradient(135deg, rgba(37,99,235,0.06), rgba(6,182,212,0.04))`, backdropFilter: "blur(16px)", border: "1px solid rgba(37,99,235,0.1)" }}>
+                <div className="text-3xl mb-3">{s.icon}</div>
+                <h3 className="font-bold text-dark text-base mb-2">{s.title}</h3>
+                <p className="text-gray-500 text-xs font-light leading-relaxed mb-3">{s.desc}</p>
+                <div className="flex flex-wrap gap-1.5 mb-3">
+                  {s.items.slice(0, 4).map((item) => (
+                    <span key={item} className="text-[10px] bg-gray-100 text-gray-500 px-2 py-0.5 rounded-full">{item}</span>
+                  ))}
+                  {s.items.length > 4 && <span className="text-[10px] text-brand-blue font-medium">+{s.items.length - 4} more</span>}
+                </div>
+                <span className="inline-flex items-center gap-1 text-xs font-semibold text-brand-blue group-hover:gap-2 transition-all">
+                  Learn More <ArrowRight size={12} />
+                </span>
+              </motion.div>
+            </Link>
           ))}
         </div>
 
@@ -314,15 +316,24 @@ function Portfolio() {
         </motion.div>
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.04 } } }}
           className="grid grid-cols-2 md:grid-cols-4 gap-3">
-          {portfolioCategories.map((cat, i) => (
-            <motion.div key={cat} variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.4 } } }}
-              className="glass-card rounded-2xl p-6 text-center group cursor-default" style={{ background: `linear-gradient(135deg, rgba(37,99,235,0.05), rgba(124,58,237,0.03))` }}>
-              <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${["from-brand-blue to-brand-cyan", "from-brand-purple to-brand-pink", "from-brand-cyan to-brand-lime", "from-brand-pink to-brand-orange"][i % 4]} flex items-center justify-center text-2xl mx-auto mb-3 shadow-lg`}>
-                {["🏢", "🚗", "🎁", "👕", "🧢", "☕", "💳", "📄", "🪧", "⛪", "🏫", "💍", "📦"][i]}
-              </div>
-              <p className="font-semibold text-dark text-sm">{cat}</p>
-            </motion.div>
-          ))}
+          {portfolioCategories.map((cat, i) => {
+            const icons = ["🏢", "🚗", "🎁", "👕", "🧢", "☕", "💳", "📄", "🪧", "⛪", "🏫", "💍", "📦"];
+            const isVehicle = cat === "Vehicle Branding";
+            const card = (
+              <motion.div variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.4 } } }}
+                className="glass-card rounded-2xl p-6 text-center group cursor-pointer h-full" style={{ background: `linear-gradient(135deg, rgba(37,99,235,0.05), rgba(124,58,237,0.03))` }}>
+                <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${["from-brand-blue to-brand-cyan", "from-brand-purple to-brand-pink", "from-brand-cyan to-brand-lime", "from-brand-pink to-brand-orange"][i % 4]} flex items-center justify-center text-2xl mx-auto mb-3 shadow-lg`}>
+                  {icons[i]}
+                </div>
+                <p className="font-semibold text-dark text-sm">{cat}</p>
+              </motion.div>
+            );
+            return isVehicle ? (
+              <Link key={cat} to="/services#vehicle-branding" className="no-underline">{card}</Link>
+            ) : (
+              <div key={cat}>{card}</div>
+            );
+          })}
         </motion.div>
       </div>
     </section>
