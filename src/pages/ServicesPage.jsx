@@ -3,6 +3,13 @@ import { services } from "../content/data";
 import { Clock, CheckCircle, AlertTriangle, Wrench, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 
+const vehicleImages = [
+  { src: "/images/car-wrap-1.jpg", title: "Full Vehicle Wrap" },
+  { src: "/images/car-wrap-2.jpg", title: "Fleet Branding" },
+  { src: "/images/car-wrap-3.jpg", title: "Corporate Fleet Wrap" },
+  { src: "/images/car-wrap-4.jpg", title: "Vehicle Branding" },
+];
+
 export default function ServicesPage() {
   return (
     <main>
@@ -59,6 +66,25 @@ export default function ServicesPage() {
                       </div>
                     </div>
                   </div>
+
+                  {service.id === "vehicle-branding" && (
+                    <div className="mt-8">
+                      <h4 className="font-semibold text-dark text-sm mb-4">Recent Work</h4>
+                      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                        {vehicleImages.map((img, i) => (
+                          <motion.div key={img.title} initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.4, delay: i * 0.05 }}
+                            className="rounded-2xl overflow-hidden bg-white/60 border border-gray-100 group">
+                            <div className="aspect-[4/3] overflow-hidden">
+                              <img src={img.src} alt={img.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+                            </div>
+                            <div className="p-2.5">
+                              <p className="font-semibold text-dark text-xs text-center">{img.title}</p>
+                            </div>
+                          </motion.div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
             </motion.div>

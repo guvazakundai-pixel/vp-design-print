@@ -303,12 +303,6 @@ function ProcessTimeline() {
 
 /* ─── PORTFOLIO ─── */
 function Portfolio() {
-  const vehicleImages = [
-    { src: "/images/car-wrap-1.jpg", title: "Full Vehicle Wrap" },
-    { src: "/images/car-wrap-2.jpg", title: "Fleet Branding" },
-    { src: "/images/car-wrap-3.jpg", title: "Corporate Fleet Wrap" },
-    { src: "/images/car-wrap-4.jpg", title: "Vehicle Branding" },
-  ];
   return (
     <section id="portfolio" className="relative py-24 overflow-hidden bg-white">
       <div className="blob blob-purple" style={{ top: '-100px', right: '-50px' }} />
@@ -329,23 +323,6 @@ function Portfolio() {
               <p className="font-semibold text-dark text-sm">{cat}</p>
             </motion.div>
           ))}
-        </motion.div>
-
-        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="mt-14">
-          <h3 className="text-xl md:text-2xl font-bold text-dark text-center mb-8">Vehicle Branding <span className="text-gradient-brand">Showcase</span></h3>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-            {vehicleImages.map((img, i) => (
-              <motion.div key={img.title} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: i * 0.08 }}
-                className="glass-card rounded-2xl overflow-hidden group cursor-default">
-                <div className="aspect-[4/3] overflow-hidden">
-                  <img src={img.src} alt={img.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
-                </div>
-                <div className="p-3">
-                  <p className="font-semibold text-dark text-xs text-center">{img.title}</p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
         </motion.div>
       </div>
     </section>
